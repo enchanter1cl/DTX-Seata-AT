@@ -1,0 +1,26 @@
+server:
+  port: 29100
+
+spring:
+  application:
+    name: newbee-gateway-admin
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+
+    # 网关开启服务注册与服务发现
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: user-service-route
+          uri: lb://user-service-web
+          order: 1
+          predicates:
+            - Path=/users/web/**
