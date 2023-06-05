@@ -1,6 +1,6 @@
 package com.erato.userserviceweb.dao;
 
-import com.erato.usersvc.entity.AdminUserToken;
+import com.erato.userserviceweb.entity.AdminUserToken;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
