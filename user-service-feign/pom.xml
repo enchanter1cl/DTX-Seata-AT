@@ -8,7 +8,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>user-service-web-api</artifactId>
+    <artifactId>user-service-feign</artifactId>
     <packaging>jar</packaging>
 
     <name>用户web服务的openfeign包</name>

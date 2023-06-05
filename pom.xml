@@ -83,6 +83,6 @@
         <module>gateway-web</module>
         <module>cloud-common</module>
         <module>user-service</module>
-        <module>user-service-web-api</module>
+        <module>user-service-feign</module>
     </modules>
 </project>
