@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.erato.userserviceweb.dao.AdminUserDao">
+<mapper namespace="com.erato.userserviceweb.dao.AdminUserMapper">
 
     <resultMap type="com.erato.userserviceweb.entity.AdminUser" id="AdminUserMap">
         <result property="adminUserId" column="admin_user_id" jdbcType="INTEGER"/>
@@ -9,6 +9,13 @@
         <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
         <result property="locked" column="locked" jdbcType="INTEGER"/>
     </resultMap>
+
+    <select id="login" resultMap="AdminUserMap">
+        select
+            *
+        from tb_newbee_mall_admin_user
+        where login_user_name = #{userName,jdbcType=VARCHAR} AND login_password=#{password,jdbcType=VARCHAR} AND locked = 0
+    </select>
 
     <!--查询单个-->
     <select id="queryById" resultMap="AdminUserMap">

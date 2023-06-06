@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.erato.userserviceweb.dao.AdminUserTokenMapper">
 
-    <resultMap type="com.erato.userserviceweb.entity.AdminUserToken" id="AdminUserTokenMap">
+    <resultMap type="com.erato.cloud.common.pojo.AdminUserToken" id="AdminUserTokenMap">
         <result property="adminUserId" column="admin_user_id" jdbcType="INTEGER"/>
         <result property="token" column="token" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
@@ -40,7 +40,7 @@
     </select>
 
     <select id="selectByToken" resultMap="AdminUserTokenMap">
-        select * from tbl_newbee_mall_admin_user_token
+        select * from tb_newbee_mall_admin_user_token
         <where>
             token = #{token}
         </where>
@@ -72,7 +72,7 @@
 <!--        values (#{token}, #{updateTime}, #{expireTime})-->
 <!--    </insert>-->
 
-    <insert id="insert" parameterType="com.erato.userserviceweb.entity.AdminUserToken">
+    <insert id="insert" parameterType="com.erato.cloud.common.pojo.AdminUserToken">
         insert into tb_newbee_mall_admin_user_token (admin_user_id, token, update_time,
                                                      expire_time)
         values (#{adminUserId,jdbcType=BIGINT}, #{token,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},

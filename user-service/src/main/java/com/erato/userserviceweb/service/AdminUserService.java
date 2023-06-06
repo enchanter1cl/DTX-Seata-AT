@@ -10,6 +10,10 @@ import com.erato.userserviceweb.entity.AdminUser;
  */
 public interface AdminUserService {
 
+    public String login(String userName, String password);
+
+    public AdminUser getUserDetailById(Long loginUserId);
+
     /**
      * 通过ID查询单条数据
      *
