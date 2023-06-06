@@ -23,4 +23,4 @@ spring:
           uri: lb://user-service-web
           order: 1
           predicates:
-            - Path=/users/web/**
+            - Path=/users/admin/**

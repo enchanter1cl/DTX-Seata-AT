@@ -21,7 +21,7 @@ public class AdminUserController {
     @Autowired
     AdminUserService adminUserService;
 
-    @GetMapping("/users/web/admin-user/{id}")
+    @GetMapping("/users/admin/admin-user/{id}")
     public Result queryAdminUserById(@PathVariable("id")Long id) {
         return ResultGenerator.genSuccessResult(adminUserService.queryById(id));
     }
