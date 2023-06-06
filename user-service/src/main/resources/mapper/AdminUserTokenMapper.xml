@@ -72,7 +72,7 @@
 <!--        values (#{token}, #{updateTime}, #{expireTime})-->
 <!--    </insert>-->
 
-    <insert id="insert" parameterType="com.erato.usersvc.entity.AdminUserToken">
+    <insert id="insert" parameterType="com.erato.userserviceweb.entity.AdminUserToken">
         insert into tb_newbee_mall_admin_user_token (admin_user_id, token, update_time,
                                                      expire_time)
         values (#{adminUserId,jdbcType=BIGINT}, #{token,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
