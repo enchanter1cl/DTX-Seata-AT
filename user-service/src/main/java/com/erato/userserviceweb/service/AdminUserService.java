@@ -1,6 +1,6 @@
-package com.erato.goodsservice.service;
+package com.erato.userserviceweb.service;
 
-import com.erato.goodsservice.entity.AdminUser;
+import com.erato.userserviceweb.entity.AdminUser;
 
 /**
  * (AdminUser)表服务接口

@@ -1,4 +1,4 @@
-package com.erato.goodsservice.dao;
+package com.erato.userserviceweb.dao;
 
 import com.erato.cloud.common.pojo.AdminUserToken;
 import org.apache.ibatis.annotations.Mapper;

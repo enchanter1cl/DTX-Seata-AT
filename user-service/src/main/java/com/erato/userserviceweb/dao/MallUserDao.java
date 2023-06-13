@@ -1,6 +1,6 @@
-package com.erato.goodsservice.dao;
+package com.erato.userserviceweb.dao;
 
-import com.erato.goodsservice.entity.MallUser;
+import com.erato.userserviceweb.entity.MallUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;

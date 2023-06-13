@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erato.goodsservice.dao.MallUserDao">
+
+    <resultMap type="com.erato.goodsservice.entity.MallUser" id="MallUserMap">
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="loginName" column="login_name" jdbcType="VARCHAR"/>
+        <result property="passwordMd5" column="password_md5" jdbcType="VARCHAR"/>
+        <result property="introduceSign" column="introduce_sign" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="lockedFlag" column="locked_flag" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MallUserMap">
+        select user_id,
+               nick_name,
+               login_name,
+               password_md5,
+               introduce_sign,
+               is_deleted,
+               locked_flag,
+               create_time
+        from tb_newbee_mall_user
+        where user_id = #{userId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MallUserMap">
+        select
+        user_id, nick_name, login_name, password_md5, introduce_sign, is_deleted, locked_flag, create_time
+        from tb_newbee_mall_user
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and nick_name = #{nickName}
+            </if>
+            <if test="loginName != null and loginName != ''">
+                and login_name = #{loginName}
+            </if>
+            <if test="passwordMd5 != null and passwordMd5 != ''">
+                and password_md5 = #{passwordMd5}
+            </if>
+            <if test="introduceSign != null and introduceSign != ''">
+                and introduce_sign = #{introduceSign}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="lockedFlag != null">
+                and locked_flag = #{lockedFlag}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from tb_newbee_mall_user
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and nick_name = #{nickName}
+            </if>
+            <if test="loginName != null and loginName != ''">
+                and login_name = #{loginName}
+            </if>
+            <if test="passwordMd5 != null and passwordMd5 != ''">
+                and password_md5 = #{passwordMd5}
+            </if>
+            <if test="introduceSign != null and introduceSign != ''">
+                and introduce_sign = #{introduceSign}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="lockedFlag != null">
+                and locked_flag = #{lockedFlag}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
+        insert into tb_newbee_mall_user(nick_name, login_name, password_md5, introduce_sign, is_deleted, locked_flag,
+                                        create_time)
+        values (#{nickName}, #{loginName}, #{passwordMd5}, #{introduceSign}, #{isDeleted}, #{lockedFlag}, #{createTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="userId" useGeneratedKeys="true">
+        insert into tb_newbee_mall_user(nick_name, login_name, password_md5, introduce_sign, is_deleted, locked_flag,
+        create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.nickName}, #{entity.loginName}, #{entity.passwordMd5}, #{entity.introduceSign},
+            #{entity.isDeleted}, #{entity.lockedFlag}, #{entity.createTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="userId" useGeneratedKeys="true">
+        insert into tb_newbee_mall_user(nick_name, login_name, password_md5, introduce_sign, is_deleted, locked_flag,
+        create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.nickName}, #{entity.loginName}, #{entity.passwordMd5}, #{entity.introduceSign},
+            #{entity.isDeleted}, #{entity.lockedFlag}, #{entity.createTime})
+        </foreach>
+        on duplicate key update
+        nick_name = values(nick_name),
+        login_name = values(login_name),
+        password_md5 = values(password_md5),
+        introduce_sign = values(introduce_sign),
+        is_deleted = values(is_deleted),
+        locked_flag = values(locked_flag),
+        create_time = values(create_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tb_newbee_mall_user
+        <set>
+            <if test="nickName != null and nickName != ''">
+                nick_name = #{nickName},
+            </if>
+            <if test="loginName != null and loginName != ''">
+                login_name = #{loginName},
+            </if>
+            <if test="passwordMd5 != null and passwordMd5 != ''">
+                password_md5 = #{passwordMd5},
+            </if>
+            <if test="introduceSign != null and introduceSign != ''">
+                introduce_sign = #{introduceSign},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="lockedFlag != null">
+                locked_flag = #{lockedFlag},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from tb_newbee_mall_user
+        where user_id = #{userId}
+    </delete>
+
+</mapper>
+

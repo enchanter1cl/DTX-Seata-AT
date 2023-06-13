@@ -1,13 +1,15 @@
-package com.erato;
+package com.erato.orderservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * Hello world!
  *
  */
 
+@EnableFeignClients(basePackageClasses = {com.erato.cartservicefeign.CartServiceFeign.class, com.erato.goodsserviceapi.feign.GoodsServiceFeign.class})
 @SpringBootApplication
 public class OrderServiceApp
 {

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erato.cartservice.dao.ShoppingCartItemDao">
+
+    <resultMap type="com.erato.cartservice.entity.ShoppingCartItem" id="ShoppingCartItemMap">
+        <result property="cartItemId" column="cart_item_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="goodsId" column="goods_id" jdbcType="INTEGER"/>
+        <result property="goodsCount" column="goods_count" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ShoppingCartItemMap">
+        select cart_item_id,
+               user_id,
+               goods_id,
+               goods_count,
+               is_deleted,
+               create_time,
+               update_time
+        from tb_newbee_mall_shopping_cart_item
+        where cart_item_id = #{cartItemId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ShoppingCartItemMap">
+        select
+        cart_item_id, user_id, goods_id, goods_count, is_deleted, create_time, update_time
+        from tb_newbee_mall_shopping_cart_item
+        <where>
+            <if test="cartItemId != null">
+                and cart_item_id = #{cartItemId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="goodsId != null">
+                and goods_id = #{goodsId}
+            </if>
+            <if test="goodsCount != null">
+                and goods_count = #{goodsCount}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from tb_newbee_mall_shopping_cart_item
+        <where>
+            <if test="cartItemId != null">
+                and cart_item_id = #{cartItemId}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="goodsId != null">
+                and goods_id = #{goodsId}
+            </if>
+            <if test="goodsCount != null">
+                and goods_count = #{goodsCount}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="cartItemId" useGeneratedKeys="true">
+        insert into tb_newbee_mall_shopping_cart_item(user_id, goods_id, goods_count, is_deleted, create_time, update_time)
+        values (#{userId}, #{goodsId}, #{goodsCount}, #{isDeleted}, #{createTime}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="cartItemId" useGeneratedKeys="true">
+        insert into tb_newbee_mall_shopping_cart_item(user_id, goods_id, goods_count, is_deleted, create_time,
+        update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.userId}, #{entity.goodsId}, #{entity.goodsCount}, #{entity.isDeleted}, #{entity.createTime},
+            #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="cartItemId" useGeneratedKeys="true">
+        insert into tb_newbee_mall_shopping_cart_item(user_id, goods_id, goods_count, is_deleted, create_time,
+        update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.userId}, #{entity.goodsId}, #{entity.goodsCount}, #{entity.isDeleted}, #{entity.createTime},
+            #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        user_id = values(user_id),
+        goods_id = values(goods_id),
+        goods_count = values(goods_count),
+        is_deleted = values(is_deleted),
+        create_time = values(create_time),
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tb_newbee_mall_shopping_cart_item
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId},
+            </if>
+            <if test="goodsCount != null">
+                goods_count = #{goodsCount},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where cart_item_id = #{cartItemId}
+    </update>
+
+    <!--通过主键删除-->
+<!--    <delete id="deleteById">-->
+<!--        delete-->
+<!--        from tb_newbee_mall_shopping_cart_item-->
+<!--        where cart_item_id = #{cartItemId}-->
+<!--    </delete>-->
+    <update id="deleteById">
+        UPDATE tb_newbee_mall_shopping_cart_item
+        <set>is_deleted = 1</set>
+        <where>cart_item_id = #{cartItemId}</where>
+    </update>
+
+</mapper>
+

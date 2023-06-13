@@ -1,12 +1,12 @@
 package com.erato.cloud.common.exception;
 
-public class EratoException extends RuntimeException {
+public class NewBeeMallException extends RuntimeException {
 
-    public EratoException() {
+    public NewBeeMallException() {
 
     }
 
-    public EratoException(String message) {
+    public NewBeeMallException(String message) {
         super(message);
     }
 
@@ -15,6 +15,6 @@ public class EratoException extends RuntimeException {
      * @param message
      */
     public static void fail(String message) {
-        throw new EratoException(message);
+        throw new NewBeeMallException(message);
     }
 }

@@ -1,10 +1,10 @@
-package com.erato.goodsservice.config.handler;
+package com.erato.userserviceweb.config.handler;
 
 
-import com.erato.cloud.common.exception.EratoException;
+import com.erato.cloud.common.exception.NewBeeMallException;
 import com.erato.cloud.common.pojo.AdminUserToken;
-import com.erato.goodsservice.config.annotation.TokenToAdminUser;
-import com.erato.goodsservice.dao.AdminUserTokenMapper;
+import com.erato.userserviceweb.config.annotation.TokenToAdminUser;
+import com.erato.userserviceweb.dao.AdminUserTokenMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -45,13 +45,13 @@ public class TokenToAdminUserMethodArgumentResolver implements HandlerMethodArgu
                 AdminUserToken adminUserToken = ops.get(token);
 
                 if (adminUserToken == null) {
-                    EratoException.fail("数据库取出 adminUserToken 为null");
+                    NewBeeMallException.fail("数据库取出 adminUserToken 为null");
                 }
                 //数据库用 token 为 key 能取到东西， 即可返回
                 return adminUserToken;
 
             } else {
-                EratoException.fail("token为空或空串，说明状态为未登录");
+                NewBeeMallException.fail("token为空或空串，说明状态为未登录");
             }
         }
         return null;

@@ -9,14 +9,20 @@
     <version>1.0</version>
   </parent>
 
-  <artifactId>user-service</artifactId>
-  <name>用户服务</name>
+  <artifactId>goods-service</artifactId>
+  <name>商品服务</name>
 
   <dependencies>
 
     <dependency>
       <groupId>com.erato</groupId>
       <artifactId>cloud-common</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.erato</groupId>
+      <artifactId>user-service-feign</artifactId>
       <version>1.0</version>
     </dependency>
 
@@ -50,6 +56,17 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid-spring-boot-starter</artifactId>
+      <version>1.2.15</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.alibaba.cloud</groupId>
+      <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
     </dependency>
 
   </dependencies>

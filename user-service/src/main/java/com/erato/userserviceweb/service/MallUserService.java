@@ -1,6 +1,6 @@
-package com.erato.goodsservice.service;
+package com.erato.userserviceweb.service;
 
-import com.erato.goodsservice.entity.MallUser;
+import com.erato.userserviceweb.entity.MallUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

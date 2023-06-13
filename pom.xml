@@ -84,5 +84,9 @@
         <module>cloud-common</module>
         <module>user-service</module>
         <module>user-service-feign</module>
+        <module>goods-service</module>
+        <module>order-service</module>
+        <module>goods-service-api</module>
+        <module>cart-service-feign</module>
     </modules>
 </project>

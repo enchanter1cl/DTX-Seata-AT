@@ -1,4 +1,4 @@
-package com.erato.goodsservice.config;
+package com.erato.userserviceweb.config;
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;

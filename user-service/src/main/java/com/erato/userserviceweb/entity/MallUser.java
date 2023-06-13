@@ -1,7 +1,7 @@
-package com.erato.goodsservice.entity;
+package com.erato.userserviceweb.entity;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (MallUser)实体类

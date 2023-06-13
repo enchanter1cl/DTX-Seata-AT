@@ -1,7 +1,7 @@
-package com.erato.goodsservice.controller;
+package com.erato.userserviceweb.controller;
 
-import com.erato.goodsservice.entity.MallUser;
-import com.erato.goodsservice.service.MallUserService;
+import com.erato.userserviceweb.entity.MallUser;
+import com.erato.userserviceweb.service.MallUserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;

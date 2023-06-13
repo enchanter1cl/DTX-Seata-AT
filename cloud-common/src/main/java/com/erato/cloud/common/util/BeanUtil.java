@@ -1,4 +1,4 @@
-package com.erato.cloudcommon.util;
+package com.erato.cloud.common.util;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;

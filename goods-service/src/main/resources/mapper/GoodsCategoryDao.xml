@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.erato.goodsweb.dao.GoodsCategoryDao">
+<mapper namespace="com.erato.goodsservice.dao.GoodsCategoryDao">
 
-    <resultMap type="com.erato.goodsweb.entity.GoodsCategory" id="GoodsCategoryMap">
+    <resultMap type="com.erato.goodsservice.entity.GoodsCategory" id="GoodsCategoryMap">
         <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
         <result property="categoryLevel" column="category_level" jdbcType="INTEGER"/>
         <result property="parentId" column="parent_id" jdbcType="INTEGER"/>

@@ -7,6 +7,22 @@ spring:
     username: root
     password: notsosecure
     driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存时间
+      min-evictable-idle-time-millis: 300000
+      # validation-query: SELECT 1 FROM sys_user
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
 
   redis:
     database: 13
@@ -38,3 +54,20 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+
+seata:
+  enabled: true
+  application-id: cart-server
+  tx-service-group: test_save_order_group
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 121.37.71.228:8848
+      username: nacos
+      password: nacos
+      group: DEFAULT_GROUP
+      cluster: default
+  service:
+    vgroup-mapping:
+      test_save_order_group: default

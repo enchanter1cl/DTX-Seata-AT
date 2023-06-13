@@ -8,13 +8,15 @@
  */
 package com.erato.userserviceweb.remote;
 
+import com.erato.cloud.common.dto.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(value = "user-service-web", path = "/users")
+
+@FeignClient(value = "user-service", path = "/users")
 public interface AdminUserServiceFeign {
 
     @GetMapping(value = "/admin/{token}")
-    String getAdminUserByToken(@PathVariable(value = "token") String token);
+    Result getAdminUserByToken(@PathVariable(value = "token") String token);
 }

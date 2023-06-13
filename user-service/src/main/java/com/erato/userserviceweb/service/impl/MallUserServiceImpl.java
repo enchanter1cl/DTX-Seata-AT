@@ -1,12 +1,12 @@
-package com.erato.goodsservice.service.impl;
+package com.erato.userserviceweb.service.impl;
 
-import com.erato.goodsservice.entity.MallUser;
-import com.erato.goodsservice.dao.MallUserDao;
-import com.erato.goodsservice.service.MallUserService;
-import org.springframework.stereotype.Service;
+import com.erato.userserviceweb.dao.MallUserDao;
+import com.erato.userserviceweb.entity.MallUser;
+import com.erato.userserviceweb.service.MallUserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 

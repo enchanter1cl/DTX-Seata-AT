@@ -1,4 +1,4 @@
-package com.erato.goodsservice.entity;
+package com.erato.userserviceweb.entity;
 
 import lombok.Data;
 
