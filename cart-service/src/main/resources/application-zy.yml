@@ -1,0 +1,42 @@
+server:
+  port: 29000
+
+spring:
+  datasource:
+    url: jdbc:mysql://121.37.71.228:3308/newbee_mall_cloud_user_db?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  redis:
+    database: 13
+    host: 121.37.71.228
+    port: 6380
+    password: foobared
+    # 连接超时时间（毫秒）
+    timeout: 5000
+    jedis:
+      pool:
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池中的最小空闲连接
+        min-idle: 0
+
+  application:
+    name: user-service
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.37.71.228:8848
+        username: nacos
+        password: nacos
+        namespace: public
+
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

@@ -1,10 +1,10 @@
-package com.erato.userserviceweb.config.handler;
+package com.erato.goodsservice.config.handler;
 
 
 import com.erato.cloud.common.exception.EratoException;
 import com.erato.cloud.common.pojo.AdminUserToken;
-import com.erato.userserviceweb.config.annotation.TokenToAdminUser;
-import com.erato.userserviceweb.dao.AdminUserTokenMapper;
+import com.erato.goodsservice.config.annotation.TokenToAdminUser;
+import com.erato.goodsservice.dao.AdminUserTokenMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.redis.core.RedisTemplate;

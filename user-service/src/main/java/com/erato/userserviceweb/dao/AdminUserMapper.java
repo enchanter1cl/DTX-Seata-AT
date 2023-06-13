@@ -1,6 +1,6 @@
-package com.erato.userserviceweb.dao;
+package com.erato.goodsservice.dao;
 
-import com.erato.userserviceweb.entity.AdminUser;
+import com.erato.goodsservice.entity.AdminUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

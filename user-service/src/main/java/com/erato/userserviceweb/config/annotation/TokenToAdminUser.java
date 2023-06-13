@@ -1,4 +1,4 @@
-package com.erato.userserviceweb.config.annotation;
+package com.erato.goodsservice.config.annotation;
 
 
 import java.lang.annotation.*;

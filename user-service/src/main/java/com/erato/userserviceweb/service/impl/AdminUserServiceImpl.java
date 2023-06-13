@@ -1,10 +1,10 @@
-package com.erato.userserviceweb.service.impl;
+package com.erato.goodsservice.service.impl;
 
 import com.erato.cloud.common.pojo.AdminUserToken;
 import com.erato.cloud.common.util.SystemUtil;
-import com.erato.userserviceweb.dao.AdminUserMapper;
-import com.erato.userserviceweb.entity.AdminUser;
-import com.erato.userserviceweb.service.AdminUserService;
+import com.erato.goodsservice.dao.AdminUserMapper;
+import com.erato.goodsservice.entity.AdminUser;
+import com.erato.goodsservice.service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;

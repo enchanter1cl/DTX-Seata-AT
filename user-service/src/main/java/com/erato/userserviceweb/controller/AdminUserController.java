@@ -1,12 +1,12 @@
-package com.erato.userserviceweb.controller;
+package com.erato.goodsservice.controller;
 
 import com.erato.cloud.common.dto.Result;
 import com.erato.cloud.common.dto.ResultGenerator;
 import com.erato.cloud.common.pojo.AdminUserToken;
-import com.erato.userserviceweb.config.annotation.TokenToAdminUser;
-import com.erato.userserviceweb.entity.AdminUser;
-import com.erato.userserviceweb.req.AdminLoginParam;
-import com.erato.userserviceweb.service.AdminUserService;
+import com.erato.goodsservice.config.annotation.TokenToAdminUser;
+import com.erato.goodsservice.entity.AdminUser;
+import com.erato.goodsservice.req.AdminLoginParam;
+import com.erato.goodsservice.service.AdminUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;

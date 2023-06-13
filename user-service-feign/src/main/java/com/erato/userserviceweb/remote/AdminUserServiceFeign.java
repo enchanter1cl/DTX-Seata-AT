@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(value = "user-service-web", path = "/users")
-public interface NewBeeCloudAdminUserServiceFeign {
+public interface AdminUserServiceFeign {
 
     @GetMapping(value = "/admin/{token}")
     String getAdminUserByToken(@PathVariable(value = "token") String token);
