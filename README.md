@@ -1,3 +1,111 @@
+--- English ---
+
+# erato-cloud-mall-newbee
+
+## Technology Stack
+
+- seata-server 1.4.2  
+- nacos-server 2.0.2  
+
+## Distributed Transaction Problem Demonstration
+
+![img.png](attachments/img_2.png)
+
+The detailed process of order creation is as follows:
+
+- First, check whether the order contains any discontinued products. If yes, throw an exception; if not, continue the process.  
+- Next, validate product data and stock. If the data is invalid or stock is insufficient, throw an exception; otherwise, continue.  
+- Perform null checks on objects.  
+- After generating the order, shopping cart items must be deleted by calling `ShoppingCartItemMapper.deleteBatch()` to remove them in batch.  
+- Update product inventory records.  
+- Validate order price: if the total of all cart items is 0 or less, do not proceed with order creation.  
+- Generate an order number, encapsulate a `MallOrder` object, and save the order record to the database.  
+- Encapsulate order item data and save it to the database.  
+- Generate an order shipping address snapshot and save it to the database.  
+- Return the order number.  
+
+**Simplified method code:**
+
+```java
+public class MallOrderServiceImpl {
+
+    @Transactional
+    public Boolean saveOrder(int cartId) {
+        // Call shopping cart service - get goods_id to be operated on
+        int goodsId = newBeeShopCartDemoService.getGoodsId(cartId);
+        // Call product service - decrease stock
+        Boolean goodsResult = newBeeGoodsDemoService.deStock(goodsId);
+        // Call shopping cart service - delete current cart data
+        Boolean cartResult = newBeeShopCartDemoService.deleteItem(cartId);
+        // Execute order creation logic
+        if (goodsResult && cartResult) {
+            // Insert a record into the order table
+            int orderResult = jdbcTemplate.update("insert into tb_order(`cart_id`) value (\"" + cartId + "\")");
+            // Exception example
+            //int i=1/0;
+            if (orderResult > 0) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+}
+```
+
+The method involves operations on the order table, order item table, shopping cart table, product table, user information table, and user address table. If any step fails validation or an exception is thrown at any point, all operations across these tables will be rolled back. This is the nature of database transactions: either fully executed or not executed at all.
+
+In a microservices context, these tables are not located in the same database and do not share a unified transaction manager. What happens then?
+
+![img_1.png](attachments/img_1.png)
+
+## Seata Concept
+
+In cross-database, cross-partition, or cross-service scenarios, ensuring that all SQL operations in a method either succeed or fail together becomes complex.
+
+Distributed transaction problems have long existed, and the industry has proposed many solutions: Two-Phase Commit (2PC), Three-Phase Commit (3PC), TCC, and eventual consistency. These are theoretical approaches — top-level designs. To apply them in real projects, actual software implementations are required. In the Java open-source ecosystem, notable distributed transaction solutions include Sharding JDBC, Atomikos, MyCat, and Alibaba Seata.
+
+These solutions, whether based on long transactions or message notification, abstract cross-database transactions into a new transaction concept. Without a distributed transaction solution, cross-database consistency cannot be achieved because each database has its own independent transaction manager. Distributed transaction frameworks introduce a new third-party coordinator to manage and abstract the process. At this point, a coordinator manages multiple database transactions, as shown below:
+
+![img_1.png](attachments/img_3.png)
+
+Seata acts as this third-party “coordinator” for cross-database transactions. It transforms cross-database and cross-service scenarios into a global transaction with multiple branch transactions.
+
+- Only when all branch transactions succeed does the global transaction succeed (Commit).  
+- If any branch transaction fails, all branch transactions are rolled back (Rollback).  
+
+## Database and Table Preparation
+
+To integrate Seata for solving distributed transaction problems, an `undo_log` table must be created in each microservice’s database. For example, if there are three microservices, each database (product, shopping cart, and order) must contain an `undo_log` table. The official Seata repository provides the schema:  
+
+https://github.com/seata/seata/tree/develop/script/client
+
+This directory includes scripts for AT, TCC, and SAGA modes. Since this project uses the AT mode (recommended for its simplicity and low business intrusion), the required schema is here:  
+
+https://github.com/seata/seata/blob/develop/script/client/at/db/mysql.sql  
+
+The final SQL schema is included in `/sql/undo_log.sql`.  
+
+The `undo_log` table stores global transaction IDs, branch transaction IDs, rollback data, execution states, etc. If the global transaction fails, Seata uses this table to roll back each branch transaction. Therefore, the table must exist in every microservice’s database. For example, in this demo, it should be created in `test_distribution_cart_db`, `test_distribution_goods_db`, and `test_distribution_order_db`. After creation, the table looks like this:  
+
+![img.png](attachments/img.png)
+
+Next, add Seata-related configuration items. Official configuration files can be found here:  
+
+https://github.com/seata/seata/tree/develop/script/client/spring  
+
+Both `.properties` and `.yml` examples are available; choose based on your project. The main configuration items include:  
+
+- `seata.enabled`: Enable automatic configuration  
+- `seata.application-id`: Current Seata client application name  
+- `seata.tx-service-group`: Transaction group  
+- `seata.registry.type`: Service registry type (Nacos in this course)  
+- `seata.registry.nacos.*`: Nacos-related configuration  
+
+In newer versions, Seata can automatically proxy data sources. Seata creates a Druid data source and registers it with Spring’s IOC container, then uses it to generate a `DataSourceProxy` object, also registered with the IOC container.
+
+--- 中文 ---
+
 # erato-cloud-mall-newbee
 
 ## 技术选型
